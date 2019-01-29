@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addTodo, toggle } from '../actions';
+import { addTodo, toggleTodo, deleteTodo } from '../actions';
 
 class ToDo extends React.Component {
     state = {
@@ -8,7 +8,7 @@ class ToDo extends React.Component {
     }
 
     handleToggle = (id) => {
-     this.props.toggle(id);
+     this.props.toggleTodo(id);
     }
 
     changeHandler = (e) => {
@@ -21,12 +21,18 @@ class ToDo extends React.Component {
         this.setState({newTodo: ''});
     }
 
+    deleteTodo = (todo) => {
+        this.props.deleteTodo(todo)
+    }
+
     render () {
         return (
             <div>
                 <h1>Todos</h1>
                 <div>
-                    {this.props.todos.map((todo, id) => { return <p onClick={() => this.handleToggle(id)}>{todo.task}</p>})}
+                    {this.props.todos.map((todo, id) => 
+                        { return <p onClick={() => this.handleToggle(id)}>{todo.task} 
+                        <button onClick={() => this.deleteTodo(todo)}>Delete</button> </p>})}
                 </div>
                 <form onSubmit={this.handleAddTodo}>
                     <input 
@@ -51,5 +57,5 @@ const mapStateToProps = state => {
   
   export default connect(
     mapStateToProps,
-    { addTodo, toggle} 
+    { addTodo, toggleTodo, deleteTodo} 
   )(ToDo); 
