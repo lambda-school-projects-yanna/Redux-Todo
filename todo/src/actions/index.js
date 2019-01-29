@@ -10,13 +10,10 @@ export const addTodo = (newTodo) => {
     };
 };
 
-/*
-// pretty sure I'll need to fix naming discrepancies in here and reducers/hs
-export const toggleTodo = (completed) => {
+export const toggle = (id) => {
     return {
         type: TOGGLE_TODO,
-        payload: completed // this may be wrong
+        payload: id 
     }
 }
 
-*/

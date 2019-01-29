@@ -14,8 +14,14 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 todos: [...state.todos, {task: action.payload, completed: false}]}
         };
+
         case(TOGGLE_TODO): {
-            return {...state, completed: action.payload}
+            return {
+                ...state, 
+                todos: state.todos.map((todo, id) => {
+                    if (id === action.payload) return {...todo, completed: !todo.completed}
+                    else {return todo;}
+                })}
         };
         default: return state;
     };

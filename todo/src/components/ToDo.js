@@ -1,13 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addTodo } from '../actions';
+import { addTodo, toggle } from '../actions';
 
 class ToDo extends React.Component {
     state = {
         newTodo: ''
     }
 
-    // add key to each friend
+    handleToggle = (id) => {
+     this.props.toggle(id);
+    }
 
     changeHandler = (e) => {
         this.setState({[e.target.name]: e.target.value});
@@ -16,6 +18,7 @@ class ToDo extends React.Component {
     handleAddTodo = (e) => {
         e.preventDefault();
         this.props.addTodo(this.state.newTodo);
+        this.setState({newTodo: ''});
     }
 
     render () {
@@ -23,12 +26,14 @@ class ToDo extends React.Component {
             <div>
                 <h1>Todos</h1>
                 <div>
-                    {this.props.todos.map(todo => { return <p>{todo.task}</p>})}
+                    {this.props.todos.map((todo, id) => { return <p onClick={() => this.handleToggle(id)}>{todo.task}</p>})}
                 </div>
                 <form onSubmit={this.handleAddTodo}>
                     <input 
                         onChange={this.changeHandler}
                         name='newTodo'
+                        value={this.state.newTodo}
+                        autoComplete='off'
                     />
                     <button>Add Todo</button>
                 </form>
@@ -38,9 +43,7 @@ class ToDo extends React.Component {
 };
 
 
-// might need to change this 
 const mapStateToProps = state => {
-    //console.log('mSTP', state);
     return {
       todos: state.todos
     };
@@ -48,5 +51,5 @@ const mapStateToProps = state => {
   
   export default connect(
     mapStateToProps,
-    { addTodo} 
+    { addTodo, toggle} 
   )(ToDo); 
