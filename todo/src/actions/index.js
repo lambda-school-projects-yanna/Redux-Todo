@@ -10,6 +10,7 @@ export const addTodo = (newTodo) => {
     };
 };
 
+/*
 // pretty sure I'll need to fix naming discrepancies in here and reducers/hs
 export const toggleTodo = (completed) => {
     return {
@@ -18,4 +19,4 @@ export const toggleTodo = (completed) => {
     }
 }
 
-
+*/

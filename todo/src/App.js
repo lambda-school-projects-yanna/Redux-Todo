@@ -4,16 +4,10 @@ import ToDo from './components/ToDo';
 
 class App extends Component {
 
-  state = {
-    todos: [
-      {task: 'Walk the dog', completed: 'false'},
-    ]
-  };
-
   render() {
     return (
       <div className="App">
-        <ToDo todos={this.state.todos} />
+        <ToDo />
       </div>
     );
   };

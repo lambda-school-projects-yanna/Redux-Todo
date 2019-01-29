@@ -1,34 +1,52 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addTodo, toggleTodo } from '../actions';
+import { addTodo } from '../actions';
 
-const ToDo = (props) => {
+class ToDo extends React.Component {
+    state = {
+        newTodo: ''
+    }
 
-    // create changehandlers
+    // add key to each friend
 
-    return (
-        <div>
-            <h1>Todos</h1>
+    changeHandler = (e) => {
+        this.setState({[e.target.name]: e.target.value});
+    }
+
+    handleAddTodo = (e) => {
+        e.preventDefault();
+        this.props.addTodo(this.state.newTodo);
+    }
+
+    render () {
+        return (
             <div>
-                {props.todos.map(todo => {return todo.task})}
+                <h1>Todos</h1>
+                <div>
+                    {this.props.todos.map(todo => { return <p>{todo.task}</p>})}
+                </div>
+                <form onSubmit={this.handleAddTodo}>
+                    <input 
+                        onChange={this.changeHandler}
+                        name='newTodo'
+                    />
+                    <button>Add Todo</button>
+                </form>
             </div>
-            <form>
-                <input/>
-                <button>Add Todo</button>
-            </form>
-        </div>
-    );
+        );
+    };
 };
+
 
 // might need to change this 
 const mapStateToProps = state => {
-    console.log('mSTP', state);
+    //console.log('mSTP', state);
     return {
-      toDosOnProps: state.todos
+      todos: state.todos
     };
   };
   
   export default connect(
     mapStateToProps,
-    { addTodo, toggleTodo } 
+    { addTodo} 
   )(ToDo); 
